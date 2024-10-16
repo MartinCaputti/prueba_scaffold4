@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // Como trabajo con pilas no puedo tener valores negativos
+  // Como trabajo con pilas no puedo tener valores negativos , elijo que minimo muestre una imagen
   void _decrementarContador() {
     setState(() {
       if (_cantidadImagenesApiladas > 1) {
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                for (int i = 0; i < _cantidadImagenesApiladas; i++)
+                for (int i = 0; i < _cantidadImagenesApiladas; i++) // Cada iteración del bucle construye y devuelve un nuevo widget, que se incluye en la lista de hijos del Stack.
                   Positioned(
                     top: 10.0 * i,
                     left: 10.0 * i,
@@ -82,22 +82,29 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          Text(
-            'Contador: $_cantidadImagenesApiladas',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            // Ajusta el valor según lo necesario
+            child: Text(
+              'Contador: $_cantidadImagenesApiladas',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
           ),
-        ],
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FloatingActionButton(
-            onPressed: _decrementarContador,
-            child: Icon(Icons.remove),
-          ),
-          FloatingActionButton(
-            onPressed: _incrementarContador,
-            child: Icon(Icons.add),
+          SizedBox(height: 10),
+          // Espacio adicional entre el texto y los botones
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FloatingActionButton(
+                onPressed: _decrementarContador,
+                child: Icon(Icons.remove),
+              ),
+              SizedBox(width: 20), // Espacio entre los botones
+              FloatingActionButton(
+                onPressed: _incrementarContador,
+                child: Icon(Icons.add),
+              ),
+            ],
           ),
         ],
       ),
