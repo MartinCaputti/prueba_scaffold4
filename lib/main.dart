@@ -59,12 +59,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementarContador() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _contador++;
+      if (_contador > 2) {
+        _contador = 0;
+      } else {
+        _contador++;
+      }
+    });
+  }
+
+  void _decrementarContador() {
+    setState(() {
+      _contador = _contador < 0 ? 2 : _contador - 1; // el mismo if restando pero probando un if ternario
     });
   }
 
@@ -82,29 +87,29 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Image.asset('assets/img/Start.jpg',
                     width: 200,
-                    height: 200,
+                    height: 300,
                     fit: BoxFit.cover //Ajusto al tamaño
                     //
                     ),
                 if (_contador >= 1)
                   Positioned(
-                    top: 20,
-                    left: 20,
+                    top: 10,
+                    left: 10,
                     child: Image.asset(
                       'assets/img/Typing.jpg',
                       width: 200,
-                      height: 200,
+                      height: 300,
                       fit: BoxFit.cover,
                     ),
                   ),
                 if (_contador >= 2)
                   Positioned(
-                    top: 40,
-                    left: 40,
+                    top: 10,
+                    left: 10,
                     child: Image.asset(
                       'assets/img/DontLoseYourHead.jpg',
                       width: 200,
-                      height: 200,
+                      height: 300,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -113,10 +118,19 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementarContador,
-        child: Icon(Icons.add),
-      ),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FloatingActionButton(
+              onPressed: _decrementarContador,
+              child: Icon(Icons.remove),
+            ),
+            FloatingActionButton(
+              onPressed: _incrementarContador,
+              child: Icon(Icons.add),
+            ),
+          ],
+        ),
     );
   }
 }
