@@ -40,7 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
   // Comienzo con una imagen
   int _cantidadImagenesApiladas = 1;
 
-
   void _incrementarContador() {
     setState(() {
       _cantidadImagenesApiladas++;
@@ -62,24 +61,32 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Generar la pila de imágenes
-            for (int i = 0; i < _cantidadImagenesApiladas; i++) //Cada iteración del bucle construye y devuelve un nuevo widget, que se incluye en la lista de hijos del Stack.
-              Positioned(
-                top: 10.0 * i, // Desplazamiento vertical para apilar
-                left: 10.0 * i, // Desplazamiento horizontal para apilar
-                child: Image.asset(
-                  imagenes[i % imagenes.length], // Ciclo infinito
-                  width: 300,
-                  height: 300,
-                  fit: BoxFit.fill, //Son imagenes de distinto tamaño y quiero que todas se adapten a las dimensiones que le pase
-                ),
-              ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                for (int i = 0; i < _cantidadImagenesApiladas; i++)
+                  Positioned(
+                    top: 10.0 * i,
+                    left: 10.0 * i,
+                    child: Image.asset(
+                      imagenes[i % imagenes.length],
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          Text(
+            'Contador: $_cantidadImagenesApiladas',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
